@@ -21,8 +21,10 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///ncaa.db")
 
-currentYear = datetime.now().year + 1
-
+if datetime.now().month < 9:
+    currentYear = datetime.now().year
+else:
+    currentYear = datetime.now().year + 1
 
 @app.after_request
 def after_request(response):
@@ -271,7 +273,7 @@ def yourTeams():
 
 @app.route("/follow_team/<team_name>", methods=["POST"])
 def follow_team(team_name):
-    # Retrieve user_id from the session (you might need to adapt this based on your authentication mechanism)
+    # Retrieve user_id from the session 
     if "user_id" in session:
         user_id = session.get("user_id")
     # Continue with the rest of the code
@@ -287,12 +289,11 @@ def follow_team(team_name):
 
 @app.route("/unfollow_team/<team_name>", methods=["POST"])
 def unfollow_team(team_name):
-    # Retrieve user_id from the session (you might need to adapt this based on your authentication mechanism)
+    # Retrieve user_id from the session 
     user_id = session.get("user_id")
 
     if user_id:
-        # Delete the team from the user's followed teams
-        # Adjust your database interaction based on your database model
+        # Delete the team from the user's followed team
         db.execute(
             "DELETE FROM user_followed_teams WHERE user_id = ? AND followed_team = ?",
             user_id,
