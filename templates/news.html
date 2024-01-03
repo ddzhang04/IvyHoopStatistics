@@ -1,0 +1,23 @@
+{% block main %}
+
+  {% for n in news %}
+    <!-- Display each news article in a box -->
+    <div class="article-box">
+      <h3>{{ n['title'] }}</h3>
+      <br>
+      <p class="description">{{ n['description'] }}</p>
+      <br>
+      <!-- "Read More" button with an onclick event -->
+      <button onclick="readMore('{{ n['link'] }}')" type="button" class="btn btn-outline-primary">Read More</button>
+    </div>
+  {% endfor %}
+
+  <!-- JavaScript function to redirect to the full article -->
+  <script>
+    function readMore(link) {
+     // Redirect to the corresponding link
+      window.location.href = "https://www.foxsports.com" + link;
+    }
+  </script>
+
+{% endblock %}

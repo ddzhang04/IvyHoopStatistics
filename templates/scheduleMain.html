@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %}
+    Schedule
+{% endblock %}
+
+{% block main %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">This Season's Schedule</h1>
+    <p class="lead">Check out an Ivy game! Season {{year-1}} - {{year}}</p>
+  </div>
+</div>
+
+<h2>Schedule {{year}}</h2>
+
+<!-- Table that contains information like visitor team, visitor points, home team, home points, overtime, and notes using Bootstrap-->
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Vistor</th>
+      <th scope="col"> PTS</th>
+      <th scope="col"> </th>
+      <th scope="col"> Home</th>
+      <th scope="col">PTS</th>
+      <th scope="col">OT</th>
+      <th scope="col">Notes</th>
+  </thead>
+  <tbody>
+
+    {% for sched in schedule %}
+    <!-- Shows the data about the schedule being shown in each cell-->
+        <tr>
+          <td scope="row">{{ sched[ 'Date' ]}}</td>
+          <td scope="row">{{ sched[ 'Visitor/Neutral' ] }}</td>
+          <td scope="row">{{ sched[ 'PTS' ] }}</td>
+          <td scope="row">@</td>
+          <td scope="row">{{ sched[ 'Home/Neutral' ] }}</td>
+          <td scope="row">{{ sched[ 'PTS' ] }}</td>
+          <td scope="row">{{ sched[ 'OT' ] }}</td>
+          <td scope="row">{{ sched[ 'Notes' ] }}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

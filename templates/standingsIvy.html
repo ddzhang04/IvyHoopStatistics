@@ -1,0 +1,29 @@
+{% block main %}
+
+<!-- Table to show data relating to the school's ranking-->
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Rank</th>
+      <th scope="col">School</th>
+      <th scope="col">Conference- Win</th>
+      <th scope="col">Conference- Loss</th>
+      <th scope="col">Overall- win</th>
+      <th scope="col">Overall- Loss</th>
+    </tr>
+  </thead>
+  <tbody>
+<!-- Dynamic table that updates information relating to the school's ranking-->
+    {% for school in schools %}
+        <tr>
+          <td scope="row">{{ school["Rank"] }}</td>
+          <td scope="row">{{ school["School"] }}</td>
+          <td scope="row">{{ school["ConfWin"] }}</td>
+          <td scope="row"> {{school["ConfLoss"] }}</td>
+          <td scope="row">{{ school["OvWin"] }}</td>
+          <td scope="row"> {{ school[ "OvLoss" ] }}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

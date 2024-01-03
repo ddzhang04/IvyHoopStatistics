@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+  <!-- Jumbotron for the news section -->
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">News</h1>
+      <p class="lead">Get up to speed with the latest updates in Ivy League Basketball.</p>
+    </div>
+  </div>
+
+  <!-- Include the 'news.html' template to display news articles -->
+  {% include 'news.html' %}
+
+<!-- End of main content block -->
+{% endblock %}

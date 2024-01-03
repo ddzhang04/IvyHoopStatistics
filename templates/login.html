@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+  <!-- Script to check for empty fields before submitting the form -->
+  <script>
+    document.querySelector('#check').addEventListener('click', function(event) {
+      let username = document.querySelector('#username').value;
+      let password = document.querySelector('#password').value;
+
+      // Check if either username or password is empty
+      if (username === "" || password === "") {
+        // Prevent form submission
+        event.preventDefault();
+        // Display feedback message for empty fields
+        document.querySelector('#feedback1').style.display = 'block';
+      }
+    });
+  </script>
+
+  <!-- Login Form -->
+  <form action="/login" method="post">
+    <!-- Input field for username -->
+    <div class="mb-3">
+      <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text">
+    </div>
+    <!-- Input field for password -->
+    <div class="mb-3">
+      <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+    </div>
+    <!-- Submit button -->
+    <button class="btn btn-primary" type="submit" id="check">Log In</button>
+    <!-- Feedback message for empty fields -->
+    <p id="feedback1"></p>
+  </form>
+{% endblock %}

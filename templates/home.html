@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+<!-- Jumbotron -->
+<div class="p-5 text-center bg-body-tertiary">
+  <h1 class="mb-3">Ivy League Men's Basketball</h1>
+  <h4 class="mb-3">Check out your favorite teams! Explore the different statistics and highlights of the Ivy League Team! </h4>
+</div>
+
+<!-- Ivy League Logo -->
+<img src="{{ url_for('static', filename='images/ivyLeagueLogo.jpg') }}"
+    alt="IvyLeague" style="width: 100%; height: auto;">
+
+<!-- Title Jumbotron -->
+<div class="homeContainer">
+  <div class="home">
+    <!-- Display Standings for the current year -->
+    <p><b>Standings {{currentYear}}</b></p>
+    {% include 'standingsIvy.html' %}
+    <!-- Display Schedule for the current year -->
+    <p><b>Schedule {{currentYear}}</b></p>
+    {% include 'schedule.html' %}
+  </div>
+  <div class="home">
+    <!-- Display News section -->
+    <p><b>News</b></p>
+    <p>Explore recent articles</p>
+    {% include 'news.html' %}
+  </div>
+</div>
+
+{% endblock %}

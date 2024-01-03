@@ -1,0 +1,248 @@
+{% extends "layout.html" %}
+{% block title %}
+    Teams
+{% endblock %}
+
+{% block main %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+</head>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Ivy League Teams</h1>
+    <p class="lead">Expand your knowledge on the eight universities comprising the Ivy League.
+</p>
+  </div>
+</div>
+
+<script>
+    function handleButtonClick(altName) {
+        // Redirect to a page with the altName and year (e.g., 2024) in the URL
+        window.location.href = `/roster/${altName}/{{currentYear}}`;
+    }
+</script>
+
+<script>
+    function toggleFollow(teamName) {
+        var button = document.getElementById('followButton');
+
+        if (button.innerText === 'FOLLOW') {
+            button.innerText = 'UNFOLLOW';
+            button.style.backgroundColor = 'gray';
+
+        } else {
+            button.innerText = 'FOLLOW';
+            button.style.backgroundColor = 'blue';
+        }
+
+
+    }
+</script>
+
+<div class="container">
+      <div class="row mb-2">
+        <div class="col-md-6">
+            <!-- Team Container -->
+            <div class = "teamContainer">
+                <button
+                    class = "teamButton"
+                    class="btn btn-block border border-dark"
+                    onclick="handleButtonClick('brown')"
+                >
+                    <img
+                    src="{{ url_for('static', filename='images/brownAthletics.jpg') }}"
+                    alt="Brown"
+                    class = "logoLayout"
+
+                >
+                    <button
+                      id="followButton1"
+                      class="btn btn-secondary smaller-button"
+                      onclick="toggleFollow('brown', 'followButton1')"
+                      style="background-color: {% if 'brown' in followed_teams %}green{% else %}blue{% endif %}; color: white;"
+                  > <span id="followButtonText1">{{ 'FOLLOW' if 'brown' not in followed_teams else 'UNFOLLOW' }}</span> </button>
+              </button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class = "teamContainer">
+                <button class = "teamButton" class="btn btn-block border border-dark" onclick="handleButtonClick('columbia')">
+                    <img src="{{ url_for('static', filename='images/columbiaAthletics.jpg') }}" alt="Columbia" class = "logoLayout">
+                    <button
+                        id="followButton2"
+                        class="btn btn-secondary smaller-button"
+                        onclick="toggleFollow('columbia','followButton2')"
+                        style="background-color: {% if 'columbia' in followed_teams %}green{% else %}blue{% endif %}; color: white;"
+                    > <span id="followButtonText2">{{ 'UNFOLLOW' if 'columbia' in followed_teams else 'FOLLOW' }}</span> </button>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <div class = "teamContainer">
+                <button class = "teamButton" class="btn btn-block border border-dark" onclick="handleButtonClick('cornell')"">
+                    <img src="{{ url_for('static', filename='images/cornellAthletics.jpg') }}" alt="Cornell" class = "logoLayout">
+                    <button
+                        id="followButton3"
+                        class="btn btn-secondary smaller-button"
+                        onclick="toggleFollow('cornell', 'followButton3')"
+                        style="background-color: {% if 'cornell' in followed_teams %}green{% else %}blue{% endif %}; color: white;"
+                    > <span id="followButtonText3">{{ 'UNFOLLOW' if 'cornell' in followed_teams else 'FOLLOW' }}</span></button>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class = "teamContainer">
+                <button class = "teamButton" class="btn btn-block border border-dark" onclick="handleButtonClick('dartmouth')">
+                    <img src="{{ url_for('static', filename='images/dartmouthAthletics.jpg') }}" alt="Dartmouth" class = "logoLayout" >
+                    <button
+                        id="followButton4"
+                        class="btn btn-secondary smaller-button"
+                        onclick="toggleFollow('dartmouth','followButton4')"
+                        style="background-color: {% if 'dartmouth' in followed_teams %}green{% else %}blue{% endif %}"
+                    > <span id="followButtonText4" >{{ 'UNFOLLOW' if 'dartmouth' in followed_teams else 'FOLLOW' }}</span></button>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <div class = "teamContainer">
+                <button class = "teamButton" class="btn btn-block border border-dark" onclick="handleButtonClick('harvard')">
+                    <img src="{{ url_for('static', filename='images/harvardAthletics.jpg') }}" alt= "Harvard" class = "logoLayout">
+                    <button
+                        id="followButton5"
+                        class="btn btn-secondary smaller-button"
+                        onclick="toggleFollow('harvard','followButton5')"
+                        style="background-color: {% if 'harvard' in followed_teams %}green{% else %}blue{% endif %}; color: white;"
+                        >
+                        {{ 'UNFOLLOW' if 'harvard' in followed_teams else 'FOLLOW' }}
+                    </button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class = "teamContainer">
+                <button class = "teamButton" onclick="handleButtonClick('pennsylvania')">
+                    <img src="{{ url_for('static', filename='images/pennsylvaniaAthletics.jpg') }}" alt="Penn" class = "logoLayout">
+                    <button
+                        id="followButton6"
+                        class="btn btn-secondary smaller-button"
+                        onclick="toggleFollow('pennsylvania','followButton6')"
+                        style="background-color: {% if 'pennsylvania' in followed_teams %}green{% else %}blue{% endif %}; color: white;"
+                    > <span id="followButtonText6">{{ 'UNFOLLOW' if 'pennsylvania' in followed_teams else 'FOLLOW' }}</span> </button>
+                </button>
+            </div>
+        </div>
+    </div>
+  <div class="row mb-2">
+      <div class="col-md-6">
+          <div class = "teamContainer">
+              <button class = "teamButton" onclick="handleButtonClick('princeton')">
+                  <img src="{{ url_for('static', filename='images/princetonAthletics.jpg') }}" alt="Princeton" class = "logoLayout">
+                  <button
+                      id="followButton7"
+                      class="btn btn-secondary smaller-button"
+                      onclick="toggleFollow('princeton','followButton7')"
+                      style="background-color: {% if 'princeton' in followed_teams %}green{% else %}blue{% endif %}; color: white;"
+                    > <span id="followButtonText7">{{ 'UNFOLLOW' if 'princeton' in followed_teams else 'FOLLOW' }}</span> </button>
+              </button>
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class = "teamContainer">
+              <button class = "teamButton" onclick="handleButtonClick('yale')">
+                <img src="{{ url_for('static', filename='images/yaleAthletics.jpg') }}" alt="Yale" class = "logoLayout">
+                  <button
+                      id="followButton8"
+                      class="btn btn-secondary smaller-button"
+                      onclick="toggleFollow('yale','followButton8')"
+                      style="background-color: {% if 'yale' in followed_teams %}green{% else %}blue{% endif %}; color: white;"
+                  > <span id="followButtonText8" color>{{ 'UNFOLLOW' if 'yale' in followed_teams else 'FOLLOW' }}</span> </button>
+              </button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Assuming followed_teams is a list of team names -->
+<script>
+    {% if session["user_id"] %}
+
+        // Function to set initial state of buttons
+        function setInitialButtonState() {
+            // Loop through each team button
+            {% for team in team_list %}
+                var buttonId = 'followButton{{ loop.index }}';
+                var button = document.getElementById(buttonId);
+
+                // Check if the team is in the followed teams
+                if (followedTeams && followedTeams.includes('{{ team }}')) {
+                    button.innerText = 'UNFOLLOW';
+                    button.style.backgroundColor = 'green';
+                } else {
+                    button.innerText = 'FOLLOW';
+                    button.style.backgroundColor = 'blue';
+                }
+            {% endfor %}
+        }
+
+        // Call the function to set initial button state
+        setInitialButtonState();
+
+        // Function to toggle follow
+        function toggleFollow(teamName, buttonId) {
+            var button = document.getElementById(buttonId);
+
+            if (button.innerText === 'FOLLOW') {
+                // Send a request to the server to update the database
+                fetch(`/follow_team/${teamName}`, {
+                    method: 'POST',
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Update the button text and style if the request is successful
+                        button.innerText = 'UNFOLLOW';
+                        button.style.backgroundColor = 'green';
+                    } else {
+                        console.error('Error following team');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error following team:', error);
+                });
+            } else {
+                // Send a request to the server to update the database
+                fetch(`/unfollow_team/${teamName}`, {
+                    method: 'POST',
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Update the button text and style if the request is successful
+                        button.innerText = 'FOLLOW';
+                        button.style.backgroundColor = 'blue';
+                    } else {
+                        console.error('Error unfollowing team');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error unfollowing team:', error);
+                });
+            }
+        }
+    {% else %}
+        var isLoggedIn = false;
+
+        function toggleFollow(teamName, buttonId) {
+            // Show an alert if the user is not logged in
+            alert('Please log in to follow teams.');
+        }
+    {% endif %}
+</script>
+
+
+
+
+{% endblock %}

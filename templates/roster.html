@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Roster 
+{% endblock %}
+
+{% block main %}
+<!-- Creates a jumbotron and has a container class -->
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">{{ school|capitalize }}  Roster</h1>
+    <p class="lead">Access the current and previous year's team lineup.</p>
+  </div>
+</div>
+
+ <!-- Displaying school logo or image -->
+ <img alt="{{school}}" src="{{ url_for('static', filename='images/' + school + 'Athletics.jpg') }}" style="width: 10%; height: auto;">
+
+<!-- Displaying school name and selected year -->
+<h2>{{ school|capitalize }} Roster {{ year }}</h2>
+
+<!-- Form for users to input a year and navigate to the corresponding page -->
+<div class="row g-3 align-items-center" style="justify-content: center">
+  <div class="col-auto">
+    <form id="yearForm">
+      <label for="yearInput">Enter Year:</label>
+      <input type="number" id="yearInput" placeholder="YYYY" required class="form-control" class="formInput">
+      <button type="button" onclick="redirectToYear()" class="btn btn-outline-primary">Go</button>
+    </form>
+  </div>
+</div>
+
+<script> 
+  document.getElementById('yearForm').addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent default form submission
+      redirectToYear();
+  });
+
+  // Redirects user to a year based on the input
+  function redirectToYear() {
+      const year = document.getElementById('yearInput').value.trim();
+      const isNumeric = /^\d{4}$/.test(year);
+      const curYear = new Date().getFullYear();
+      const currentPath = window.location.pathname;
+
+      // Checks if the input is a valid 4-digit number within the range of 1954 - current year
+      if (isNumeric && (1954 <= year && year <= curYear)) {
+          const pathSegments = currentPath.split('/');
+          const schoolIndex = pathSegments.indexOf('roster') + 1;
+
+          if (schoolIndex > 0 && schoolIndex < pathSegments.length) {
+              const school = pathSegments[schoolIndex];
+
+              // Redirect to the "covid" template for the year 2021
+              if (year === '2021') {
+                  window.location.href = '/covid';
+              } else {
+                  window.location.href = `/roster/${school}/${year}`;
+              }
+          } else {
+              alert('Unable to determine the school from the URL.');
+          }
+      } else {
+          alert('Please enter a valid four-digit year (YYYY).');
+      }
+  }
+</script>
+
+<!-- Create a table to display player information-->
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Player</th>
+      <th scope="col">#</th>
+      <th scope="col">Class</th>
+      <th scope="col">Position</th>
+      <th scope="col">Height</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Hometown</th>
+      <th scope="col">High School</th>
+      <th scope="col">RSCI Top 100</th>
+      <th scope="col">Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for player in team %}
+      <!-- Displays player information-->
+      <tr>
+        <td scope="row">{{ player['Player'] }}</td>
+        <td scope="row">{{ player['#'] }}</td>
+        <td scope="row">{{ player['Class'] }}</td>
+        <td scope="row">{{ player['Pos'] }}</td>
+        <td scope="row">{{ player['Height'] }}</td>
+        <td scope="row">{{ player['Weight'] }}</td>
+        <td scope="row">{{ player['Hometown'] }}</td>
+        <td scope="row">{{ player['High School'] }}</td>
+        <td scope="row">{{ player['RSCI Top 100'] }}</td>
+        <td scope="row">{{ player['Summary'] }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

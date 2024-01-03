@@ -1,0 +1,94 @@
+c{% extends "layout.html" %}
+
+
+{% block title %}
+    Standings {{ year }}
+{% endblock %}
+
+{% block main %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Standings</h1>
+    <p class="lead">View this year and past years standings.</p>
+  </div>
+</div>
+
+<div class = "row g-3 align-items-center" style = "justify-content: center">
+  <div class = "col-auto">
+<form id="yearForm">
+    <label for="yearInput">Enter Year:</label>
+    <input type="number" id="yearInput" placeholder="YYYY" required class="form-control" class = "formInput">
+    <button type="button" onclick="redirectToYear()" class="btn btn-outline-primary">Go</button>
+</form>
+  </div>
+</div>
+
+<script>
+  document.getElementById('yearForm').addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent default form submission
+
+      redirectToYear();
+  });
+
+  function redirectToYear() {
+      const year = document.getElementById('yearInput').value.trim();
+      const isNumeric = /^\d{4}$/.test(year);
+      const curYear = new Date().getFullYear();
+
+      if (isNumeric && (1954 <= year && year <= curYear + 1)) {
+              if (year === '2021') {
+                  window.location.href = '/covid'; // Redirect to the "covid" template
+              } else {
+                  window.location.href = `/standingsMain/${year}`;
+              }
+      } else {
+          alert('Please enter a valid four-digit year (YYYY).');
+      }
+  }
+</script>
+
+
+<h2>Standings {{ year }}</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Rank</th>
+      <th scope="col">School</th>
+      <th scope="col">Conference- Win</th>
+      <th scope="col">Conference- Loss</th>
+      <th scope="col">Conference- Win-Loss Percentage</th>
+      <th scope="col">Overall- win</th>
+      <th scope="col">Overall- Loss</th>
+      <th scope="col">Overall- win loss percentage</th>
+      <th scope="col">Own points per game</th>
+      <th scope="col">Opponent points per game</th>
+      <th scope="col">Simple Rating System</th>
+      <th scope="col">Strength of Schedule</th>
+      <th scope="col">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for school in schools %}
+        <tr>
+          <td scope="row">{{ school["Rank"] }}</td>
+          <td scope="row">{{ school["School"] }}</td>
+          <td scope="row">{{ school["ConfWin"] }}</td>
+          <td scope="row"> {{school["ConfLoss"] }}</td>
+          <td scope="row">{{ school["ConfWL"] }}</td>
+          <td scope="row">{{ school["OvWin"] }}</td>
+          <td scope="row"> {{ school[ "OvLoss" ] }}</td>
+          <td scope="row">{{ school["OvWL"] }}</td>
+          <td scope="row">{{ school["Own"] }}</td>
+          <td scope="row">{{ school["Opp"] }}</td>
+          <td scope="row">{{ school["Srs"] }}</td>
+          <td scope="row">{{ school["Sos"] }}</td>
+          <td scope="row">{{ school["Notes"] }}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

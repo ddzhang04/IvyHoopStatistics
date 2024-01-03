@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %}
+    Your Teams
+{% endblock %}
+
+{% block main %}
+
+{% if games_by_team|length == 0 %}
+    <!-- Display a message if there are no games for any team -->
+    <p>Go to teams to follow your favorite teams!</p>
+{% endif %}
+
+{% for team, games in games_by_team.items() %}
+    <!-- Display the team image -->
+    <img alt="{{team}}" src="{{ url_for('static', filename='images/' + team + 'Athletics.jpg') }}" style="width: 10%; height: auto;">
+
+    <!-- Display the team name and set up the table for games -->
+    <h2>{{ team| capitalize}} Games</h2>
+    <table class="table">
+        <thead>
+            <!-- Table header with column names -->
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Visitor/Neutral</th>
+                <th scope="col">PTS</th>
+                <th scope="col"></th>
+                <th scope="col">Home/Neutral</th>
+                <th scope="col">PTS</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for game in games %}
+                <!-- Populate table rows with game information -->
+                <tr>
+                    <td scope="row">{{ game['Date'] }}</td>
+                    <td scope="row">{{ game['Visitor/Neutral'] }}</td>
+                    <td scope="row">{{ game['PTS'] }}</td>
+                    <td scope="row">@</td>
+                    <td scope="row">{{ game['Home/Neutral'] }}</td>
+                    <td scope="row">{{ game['PTS.1'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+
+{% endblock %}
