@@ -69,28 +69,6 @@ def ivySchedule(year):
   schedule.to_sql(year_schedule, con=connection, if_exists='replace')
 
 
-def ticket_search(school, mascot):
-  connection = sqlite3.connect('ncaa.db')
-  url = "https://www.ticketsmarter.com/p/columbia-lions-basketball-tickets"
-  placeholder = school
-  placeholder2 = mascot
-  formatted_url_ticket = url.format(placeholder, placeholder2)
-
-  # read HTML from the URL
-  data_frame_ticket = pd.read_html(url)
-  # Assuming the schedule is the first data frame
-  events = data_frame_ticket[0]
-
-  print(events)
-
-  ticket = "ticket" + placeholder + placeholder2
-
-  # Dynamically name each year's table
-  events.to_sql(ticket, con=connection, if_exists='replace')
-
-
-
-
 def getNews():
 
     connection = sqlite3.connect('ncaa.db')
